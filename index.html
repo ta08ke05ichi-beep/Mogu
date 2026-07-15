@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#ff8a65">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<title>AI献立アプリ</title>
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+
+<body>
+
+<div class="card">
+
+<div class="logo-area">
+
+    <div class="mogu-logo">
+
+        <div class="logo" id="home"></div>
+        <div class="mogu-icon"></div>
+        <div class="mogu-text">Mogu</div>
+
+    </div>
+
+</div>
+
+
+<div class="header">
+
+<p>今日の「おいしい」を探そう🍴</p>
+
+</div>
+
+
+<div id="searchPage">
+
+<!-- レシピ検索 -->
+
+<div class="search-area">
+
+<input
+id="searchBox"
+placeholder="🔍 料理名や材料を入力"
+oninput="searchRecipes()">
+
+<button onclick="searchRecipes()">
+検索
+</button>
+
+</div>
+
+
+<div id="searchResult"></div>
+
+</div>
+
+
+<div id="recipeDetail" style="display:none;"></div>
+
+
+
+<div class="recipe-count">
+
+    <p>🍽 今日のレシピ数</p>
+
+    <h2 id="recipeTotal">0品</h2>
+
+</div>
+
+
+<div class="quick-menu">
+
+
+<button class="today-btn" onclick="randomRecipe()">
+🎲
+今日のごはん
+</button>
+
+<button class="favorite-btn" onclick="showFavorites()">
+❤️
+お気に入り
+</button>
+
+<button onclick="moodMenu('ガッツリ')">
+😋
+ガッツリ
+</button>
+
+<button onclick="moodMenu('節約')">
+💰
+節約
+</button>
+
+<button onclick="moodMenu('ヘルシー')">
+🥗
+ヘルシー
+</button>
+
+<button onclick="moodMenu('時短')">
+⚡
+時短
+</button>
+
+</div>
+
+<div id="moodResult"></div>
+
+
+
+<select id="dietMode">
+
+<option value="normal">
+通常
+</option>
+
+<option value="diet">
+ダイエット
+</option>
+
+</select>
+
+
+<br><br>
+
+
+<button onclick="suggestMenu()">
+🍽 献立を提案
+</button>
+
+<div id="menuResult"></div>
+
+
+
+
+<!-- 今日のごはん -->
+<div class="section dinner-section">
+
+<h2>🎲 今日の晩ごはん</h2>
+
+
+<button onclick="randomRecipe()">
+今日のおすすめを見る
+</button>
+
+
+<div id="randomResult"></div>
+
+
+</div>
+
+<div class="section">
+
+<h2>🍽 今日の献立セット</h2>
+
+<button onclick="todaySetMenu()">
+献立を作る
+</button>
+
+<div id="todaySetResult"></div>
+
+</div>
+
+
+
+<!-- カテゴリー -->
+<div class="section">
+
+
+<h2>🍴 ジャンルから探す</h2>
+
+
+<div class="category-buttons">
+
+
+<button onclick="filterCategory('全部')">
+<span>✨</span>
+全部
+</button>
+
+
+<button onclick="filterCategory('主食')">
+<span>🍚</span>
+主食
+</button>
+
+
+<button onclick="filterCategory('主菜')">
+<span>🍖</span>
+主菜
+</button>
+
+
+<button onclick="filterCategory('副菜')">
+<span>🥗</span>
+副菜
+</button>
+
+
+<button onclick="filterCategory('お弁当')">
+<span>🍱</span>
+お弁当
+</button>
+
+
+<button onclick="filterCategory('朝ごはん')">
+<span>🍳</span>
+朝ごはん
+</button>
+
+
+<button onclick="filterCategory('スープ')">
+<span>🍲</span>
+スープ
+</button>
+
+
+</div>
+
+
+</div>
+
+
+
+<!-- おすすめ -->
+<div class="section">
+
+
+<h2>🌟 おすすめレシピ</h2>
+
+
+<div id="recommend"></div>
+
+
+</div>
+
+
+
+
+
+<!-- 人気 -->
+<div class="section popular-section">
+
+
+<h2>🔥 人気レシピ</h2>
+
+
+<div id="popularRecipes"></div>
+
+
+</div>
+
+
+
+
+
+<!-- 買い物 -->
+<div class="section">
+
+<h2>📝 買い物メモ</h2>
+
+<textarea 
+id="shoppingMemo"
+placeholder="買うものを書いてね&#13;&#10;例：&#13;&#10;卵&#13;&#10;牛乳&#13;&#10;玉ねぎ"
+></textarea>
+
+<br>
+
+<button onclick="saveMemo()">
+💾 保存
+</button>
+
+
+</div>
+
+
+
+<!-- お気に入り -->
+<div class="section">
+
+
+<h2 id="favorite-title">
+❤️ お気に入り (0件)
+</h2>
+
+
+<div id="favorites"></div>
+
+
+</div>
+
+
+
+
+
+<!-- 詳細表示 -->
+
+<div id="recipe-detail"></div>
+
+<div class="timer-box">
+
+<h3>⏰タイマー</h3>
+
+<div class="timer-circle">
+    <h2 id="timerDisplay">10:00</h2>
+</div>
+
+<h2 id="timerDisplay">
+10:00
+</h2>
+
+</div>
+
+
+<div class="timer-setting">
+
+<input 
+id="timerMinutes"
+type="number"
+value="10"
+>
+
+<span>分</span>
+
+</div>
+
+
+<div class="timer-buttons">
+
+<button class="timer-btn" onclick="startTimer()">
+▶
+</button>
+
+<button class="timer-btn" onclick="stopTimer()">
+⏸
+</button>
+
+<button class="timer-btn reset-btn" onclick="resetTimer()">
+↻
+</button>
+
+</div>
+
+
+<div class="bottom-nav">
+
+<button onclick="goHome()">
+<span class="nav-icon home-icon">⌂</span>
+ホーム
+</button>
+
+<button onclick="goSearch()">
+<span class="nav-icon search-icon">🔍</span>
+検索
+</button>
+
+<button onclick="goFavorite()">
+<span class="nav-icon heart-icon">♥</span>
+お気に入り
+</button>
+
+<button onclick="goTimer()">
+<span class="nav-icon timer-icon">⏱</span>
+タイマー
+</button>
+
+</div>
+
+<script src="app.js"></script>
+
+<div id="finishPopup" class="finish-popup">
+
+    <div class="finish-card">
+
+        <div class="finish-icon">🍳</div>
+
+        <h2>完成！</h2>
+
+        <p>おいしくできたかな？😋</p>
+
+        <button onclick="closePopup()">OK</button>
+
+    </div>
+
+</div>
+
+<script>
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("./service-worker.js")
+  .then(() => {
+    console.log("Service Worker 登録成功");
+  })
+  .catch((error) => {
+    console.log("登録失敗", error);
+  });
+}
+</script>
+
+</body>
+</html>
+

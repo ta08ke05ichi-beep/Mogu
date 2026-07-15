@@ -1,0 +1,21 @@
+{
+  "name": "Mogu",
+  "short_name": "Mogu",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#ff8a65",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "icons/mogu-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/mogu-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
