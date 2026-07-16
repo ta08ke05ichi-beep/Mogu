@@ -3751,8 +3751,6 @@ if(!info){
 
 document.getElementById("searchPage").style.display="none";
 
-document.getElementById("searchPage").style.display="none";
-
 
 let detail = document.getElementById("recipeDetail");
 
@@ -3802,6 +3800,13 @@ ${typeof item==="string"
 `).join("")}
 </ul>
 
+<h3>作り方</h3>
+
+<ol>
+${info.howto.map(step=>`
+<li>${step}</li>
+`).join("")}
+</ol>
 
 </div>
 
@@ -3853,13 +3858,28 @@ html += `
 🍽 ${recipe.category}
 </p>
 
-<p>
+<div class="mini-info">
+
+<span>
+⏰ ${recipe.time}分
+</span>
+
+<span>
 🔥 ${recipe.kcal}kcal
-</p>
+</span>
+
+</div>
+
+
+<button onclick="toggleFavorite('${name}')">
+❤️ お気に入り
+</button>
+
 
 <button onclick="openRecipe('${name}')">
-レシピを見る
+👩‍🍳 レシピを見る
 </button>
+
 
 </div>
 `;

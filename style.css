@@ -2015,6 +2015,8 @@ box-shadow:0 5px 15px rgba(0,0,0,0.08);
 
 text-align:center;
 
+overflow:hidden;
+
 }
 
 
@@ -2053,5 +2055,26 @@ padding:10px 20px;
 font-size:14px;
 
 cursor:pointer;
+
+}
+
+.mini-info{
+
+display:flex;
+
+justify-content:center;
+
+gap:15px;
+
+margin:10px 0;
+
+font-size:14px;
+
+}
+
+
+.recommend-card button{
+
+margin:5px;
 
 }
