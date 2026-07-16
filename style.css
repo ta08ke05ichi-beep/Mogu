@@ -2000,3 +2000,58 @@ color:#333;
 box-shadow:0 3px 8px rgba(0,0,0,0.1);
 cursor:pointer;
 }
+
+.recommend-card{
+
+background:white;
+
+border-radius:20px;
+
+padding:15px;
+
+margin:15px 0;
+
+box-shadow:0 5px 15px rgba(0,0,0,0.08);
+
+text-align:center;
+
+}
+
+
+.recommend-card h3{
+
+color:#ff8a65;
+
+font-size:20px;
+
+margin-bottom:10px;
+
+}
+
+
+.recommend-card p{
+
+margin:8px;
+
+font-size:14px;
+
+}
+
+
+.recommend-card button{
+
+background:#ff8a65;
+
+color:white;
+
+border:none;
+
+border-radius:20px;
+
+padding:10px 20px;
+
+font-size:14px;
+
+cursor:pointer;
+
+}
