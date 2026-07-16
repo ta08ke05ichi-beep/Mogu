@@ -24,6 +24,11 @@ return num + unit;
 
 }
 
+let favorites =
+JSON.parse(
+localStorage.getItem("favorites")
+) || [];
+
 const recipes = {
 
 
@@ -2874,10 +2879,6 @@ document.getElementById(
 
 showPopularRecipes();
 
-let favorites =
-JSON.parse(
-localStorage.getItem("favorites")
-) || [];
 
 function addFavorite(recipe){
 
@@ -2886,7 +2887,6 @@ let index = favorites.indexOf(recipe);
 
 if(index === -1){
 
-    // お気に入りに追加
     favorites.push(recipe);
 
     alert("❤️お気に入りに追加したよ！");
@@ -2894,22 +2894,28 @@ if(index === -1){
 
 }else{
 
-    // お気に入りから削除
     favorites.splice(index,1);
 
     alert("💔お気に入りから削除したよ！");
-
 }
 
 
+// 保存
 localStorage.setItem(
 "favorites",
 JSON.stringify(favorites)
 );
 
+
+// お気に入り一覧更新
+showFavorites();
+
+
+// ボタン表示更新
 searchRecipe(recipe);
 
 }
+
 
 function showFavorites(){
 
@@ -3852,6 +3858,11 @@ let recipe = recipes[name];
 html += `
 <div class="recommend-card">
 
+<img 
+src="${recipe.image}" 
+class="recommend-image"
+>
+
 <h3>${name}</h3>
 
 <p>
@@ -3871,7 +3882,7 @@ html += `
 </div>
 
 
-<button onclick="toggleFavorite('${name}')">
+<button onclick="addFavorite('${name}')">
 ❤️ お気に入り
 </button>
 
