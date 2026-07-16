@@ -1989,7 +1989,6 @@ font-size:16px;
 margin-bottom:15px;
 }
 
-
 .mogu-btn{
 border:none;
 border-radius:20px;
@@ -1997,6 +1996,7 @@ padding:12px 18px;
 margin:5px;
 font-size:15px;
 background:white;
+color:#333;
 box-shadow:0 3px 8px rgba(0,0,0,0.1);
 cursor:pointer;
 }
