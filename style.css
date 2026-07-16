@@ -1931,3 +1931,72 @@ border-radius:10px;
     }
 
 }
+
+.mogu-box{
+    background:#fff;
+    border-radius:20px;
+    padding:20px;
+    margin:20px;
+    text-align:center;
+    box-shadow:0 5px 15px rgba(0,0,0,0.1);
+}
+
+.mogu-title{
+    font-size:18px;
+    font-weight:bold;
+    margin:10px 0 20px;
+}
+
+.mogu-btn{
+    background:#ff9800;
+    color:white;
+    border:none;
+    padding:12px 25px;
+    border-radius:30px;
+    font-size:17px;
+    cursor:pointer;
+}
+
+.mogu-btn:hover{
+    background:#f57c00;
+}
+
+#moguResult{
+    margin-top:20px;
+    line-height:2;
+    font-size:18px;
+}
+
+.mogu-box{
+background:#fff7f0;
+padding:20px;
+border-radius:25px;
+margin:20px 0;
+box-shadow:0 5px 15px rgba(0,0,0,0.08);
+}
+
+
+.mogu-heading{
+text-align:center;
+color:#ff8a65;
+font-size:24px;
+}
+
+
+.mogu-title{
+text-align:center;
+font-size:16px;
+margin-bottom:15px;
+}
+
+
+.mogu-btn{
+border:none;
+border-radius:20px;
+padding:12px 18px;
+margin:5px;
+font-size:15px;
+background:white;
+box-shadow:0 3px 8px rgba(0,0,0,0.1);
+cursor:pointer;
+}

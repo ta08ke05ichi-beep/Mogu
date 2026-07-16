@@ -3816,3 +3816,57 @@ function backSearch(){
     document.getElementById("searchPage").style.display = "block";
 
 }
+
+function recommendMenu(){
+
+let keys = Object.keys(recipes);
+
+// ランダムで3品選ぶ
+let result = [];
+
+while(result.length < 3 && result.length < keys.length){
+
+let random =
+keys[Math.floor(Math.random()*keys.length)];
+
+if(!result.includes(random)){
+result.push(random);
+}
+
+}
+
+
+let html = `
+<h3>🐻 Moguの今日のおすすめ</h3>
+`;
+
+result.forEach(function(name){
+
+let recipe = recipes[name];
+
+html += `
+<div class="recommend-card">
+
+<h3>${name}</h3>
+
+<p>
+🍽 ${recipe.category}
+</p>
+
+<p>
+🔥 ${recipe.kcal}kcal
+</p>
+
+<button onclick="openRecipe('${name}')">
+レシピを見る
+</button>
+
+</div>
+`;
+
+});
+
+
+document.getElementById("moguResult").innerHTML = html;
+
+}
