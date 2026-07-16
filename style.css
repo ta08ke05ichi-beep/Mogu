@@ -2078,3 +2078,27 @@ font-size:14px;
 margin:5px;
 
 }
+
+.mini-info{
+display:flex;
+justify-content:center;
+gap:10px;
+flex-wrap:wrap;
+margin:10px 0;
+font-size:14px;
+}
+
+
+.mini-info span{
+background:#fff7f0;
+padding:8px 12px;
+border-radius:15px;
+white-space:nowrap;
+}
+
+
+.recommend-card{
+width:100%;
+box-sizing:border-box;
+overflow:hidden;
+}
