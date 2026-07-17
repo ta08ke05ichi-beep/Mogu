@@ -3,7 +3,7 @@
   "short_name": "Mogu",
   "start_url": "./",
   "display": "standalone",
-  "background_color": "#ffffff",
+  "background_color": "#fff8f0",
   "theme_color": "#ff8a65",
   "orientation": "portrait",
   "icons": [
