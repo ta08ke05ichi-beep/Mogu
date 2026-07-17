@@ -3649,8 +3649,12 @@ Math.random()*list.length
 )
 ];
 
-let info =
-recipes[recipe];
+let info = recipes[recipe];
+
+if(!info){
+    console.log("レシピが見つかりません:", recipe);
+    return;
+}
 
 document.getElementById(
 "moodResult"
