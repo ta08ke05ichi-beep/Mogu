@@ -2863,7 +2863,7 @@ for(let i=0;i<5;i++){
 
 html += `
 
-<div class="recipe-card" onclick="searchRecipe('${shuffled[i].name.replace(' ','')}')">
+<div class="recipe-card" onclick="openRecipe('${shuffled[i].name.replace(' ','')}')">
 
 <img
 src="${shuffled[i].image}"
@@ -2937,8 +2937,6 @@ if(btn){
 recommendMenu();
 
 
-// 検索結果更新
-searchRecipe(recipe);
 
 }
 
@@ -2951,7 +2949,7 @@ for(let i=0;i<favorites.length;i++){
 let info = recipes[favorites[i]];
 
 html +=
-"<div class='card' onclick=\"searchRecipe('" +
+"<div class='card' onclick=\"openRecipe('" +
 favorites[i] +
 "')\">" +
 
@@ -2992,110 +2990,10 @@ document.getElementById("favorites").innerHTML = html;
 
 function searchRecipe(name){
 
-let info = recipes[name];
-
-if(!info){
-return;
-}
-
-let people = info.servings;
-
-let text = `
-
-<button onclick="closeRecipe()">
-← 戻る
-</button>
-
-<h2>${name}</h2>
-
-<img src="${info.image}" class="recipe-detail-image">
-
-<button 
-class="favorite-btn ${favorites.includes(name) ? "active" : ""}"
-onclick="addFavorite('${name}')">
-
-<span class="favorite-heart">
-${favorites.includes(name) ? "♥" : "♡"}
-</span>
-お気に入り
-
-</button>
-
-<div class="recipe-status">
-
-<div>
-🔥 ${info.kcal}kcal
-</div>
-
-<div>
-⏰ ${info.time}分
-</div>
-
-<div>
-💪 ${info.protein}g
-</div>
-
-<div>
-👥 ${info.servings}人分
-</div>
-
-</div>
-
-<p>
-👥 人数：
-<select id="personCount" onchange="changeServings('${name}')">
-<option value="1">1人分</option>
-<option value="2" selected>2人分</option>
-<option value="3">3人分</option>
-<option value="4">4人分</option>
-</select>
-</p>
-
-<div class="section-title">
-材料
-</div>
-
-<ul class="ingredient-list">
-
-${info.ingredients.map(item =>
-
-`
-<li>
-${
-typeof item === "string"
-?
-item
-:
-item.name + " " +
-formatAmount(
-item.amount * people / info.servings,
-item.unit
-)
-+
-(item.note || "")
-}
-</li>
-`
-
-).join("")}
-
-</ul>
-
-<div class="section-title">
-作り方
-</div>
-
-<ol class="howto-list">
-
-${info.howto.map(x =>
-`<li>${x}</li>`
-).join("")}
-
-</ol>
-`;
-document.getElementById("recipe-detail").innerHTML = text;
+    openRecipe(name);
 
 }
+
 
 function showRecommend(){
 
@@ -3120,7 +3018,7 @@ let info = recipes[name];
 
 html += `
 
-<div class="recommend-card" onclick="searchRecipe('${name}')">
+<div class="recommend-card" onclick="openRecipe('${name}')">
 
 <img src="${info.image}" class="recommend-image">
 
@@ -3152,12 +3050,6 @@ document.getElementById("recommend").innerHTML = html;
 
 }
 
-
-function closeRecipe(){
-
-document.getElementById("recipe-detail").innerHTML = "";
-
-}
 
 function filterCategory(category){
 
@@ -3273,7 +3165,7 @@ if(matchName || matchIngredient || matchCategory){
 
 html += `
 <div class="recipe-card"
-onclick="searchRecipe('${name}')">
+onclick="openRecipe('${name}')">
 
 <img 
 src="${info.image}" 
@@ -3296,84 +3188,9 @@ document.getElementById("searchResult").innerHTML = html;
 
 }
 
-
-
 function changeServings(name){
 
-let people =
-document.getElementById("personCount").value;
-
-let info = recipes[name];
-
-let ratio = people / info.servings;
-
-
-let html = `
-
-<h2>${name}</h2>
-
-<img src="${info.image}" class="recipe-detail-image">
-
-<button onclick="addFavorite('${name}')">
-❤️ お気に入り
-</button>
-
-<p>カロリー：${info.kcal * people / info.servings}kcal</p>
-
-<p>時間：${info.time}分</p>
-
-<p>タンパク質：
-${info.protein * people / info.servings}g
-</p>
-
-<p>
-👥 人数：
-<select id="personCount" onchange="changeServings('${name}')">
-<option value="1" ${people==1?"selected":""}>1人分</option>
-<option value="2" ${people==2?"selected":""}>2人分</option>
-<option value="3" ${people==3?"selected":""}>3人分</option>
-<option value="4" ${people==4?"selected":""}>4人分</option>
-</select>
-</p>
-
-<h3>材料</h3>
-
-<ul>
-
-${info.ingredients.map(item =>
-
-`
-<li>
-${
-typeof item === "string"
-?
-item
-.replace("0.5","1/2")
-.replace("0.25","1/4")
-.replace("0.33","1/3")
-.replace("0.75","3/4")
-:
-item.name + " " +
-(item.amount * ratio) +
-item.unit +
-(item.note || "")
-}
-</li>
-`
-
-).join("")}
-
-</ul>
-
-<h3>作り方</h3>
-
-<ol>
-${info.howto.map(x=>`<li>${x}</li>`).join("")}
-</ol>
-
-`;
-
-document.getElementById("recipe-detail").innerHTML = html;
+    openRecipe(name);
 
 }
 
@@ -3391,7 +3208,7 @@ let info = recipes[recipe];
 document.getElementById("randomResult").innerHTML = `
 
 <div class="recipe-card"
-onclick="searchRecipe('${recipe}')">
+onclick="openRecipe('${recipe}')">
 
 <img
 src="${info.image}"
@@ -3458,7 +3275,7 @@ document.getElementById("shoppingMemo").value=memo;
 
 }
 
-function goHome(){
+function scrollHome(){
 
     document.getElementById("home")
     .scrollIntoView({
@@ -3584,7 +3401,7 @@ ${totalKcal} kcal
 
 <br>
 
-<button onclick="searchRecipe('${set.main}')">
+<button onclick="openRecipe('${set.main}')">
 主菜のレシピを見る
 </button>
 
@@ -3661,7 +3478,7 @@ document.getElementById(
 ).innerHTML = `
 
 <div class="recipe-card"
-onclick="searchRecipe('${recipe}')">
+onclick="openRecipe('${recipe}')">
 
 <h3>${type}におすすめ✨</h3>
 
@@ -3686,16 +3503,51 @@ class="recipe-image"
 
 }
 
-showRecommend();
-showFavorites();
+if(document.getElementById("recommend")){
+    showRecommend();
+}
+
+if(document.getElementById("favorites")){
+    showFavorites();
+}
 
 let timer;
 let timeLeft = 0;
 
+let timerMinutesValue = 10;
+
+
+function changeTimer(value){
+
+    timerMinutesValue += value;
+
+
+    // 1分以下にはしない
+    if(timerMinutesValue < 1){
+        timerMinutesValue = 1;
+    }
+
+
+    // 99分以上にしない
+    if(timerMinutesValue > 99){
+        timerMinutesValue = 99;
+    }
+
+
+    document.getElementById("timerMinutes").innerText =
+    timerMinutesValue;
+
+
+    document.getElementById("timerDisplay").innerText =
+    String(timerMinutesValue).padStart(2,"0") + ":00";
+
+}
 
 function startTimer(){
 
-    let minutes = document.getElementById("timerMinutes").value;
+    let minutes = Number(
+        document.getElementById("timerMinutes").innerText
+    );
 
     timeLeft = minutes * 60;
 
@@ -3742,7 +3594,7 @@ function resetTimer(){
     clearInterval(timer);
 
 
-    let minutes = document.getElementById("timerMinutes").value;
+    let minutes = document.getElementById("timerMinutes").innerText;
 
 
     timeLeft = minutes * 60;
@@ -3769,11 +3621,9 @@ function closePopup(){
 
 function openRecipe(name){
 
-let info = recipes[name];
+location.href =
+"recipe.html?name=" + encodeURIComponent(name);
 
-if(!info){
-    console.log("レシピが見つかりません:", name);
-    return;
 }
 
 // ホーム系を隠す
@@ -3785,15 +3635,12 @@ document.getElementById("moguResult").style.display="none";
 // レシピ詳細画面を表示
 document.getElementById("recipePage").style.display="block";
 
+// 下のナビを隠す
+document.querySelector(".bottom-nav").style.display="none";
 
 let detail = document.getElementById("recipe-detail");
 
-
 detail.innerHTML = `
-
-<button class="back-btn" onclick="goHome()">
-⬅ 戻る
-</button>
 
 <div class="detail-card">
 
@@ -3805,7 +3652,6 @@ detail.innerHTML = `
 ${info.text || ""}
 </p>
 
-<p>${info.text || ""}</p>
 
 <div class="info-cards">
 
@@ -3823,32 +3669,92 @@ ${info.text || ""}
 
 </div>
 
+<p>
+👥 人数：
 
-<h3>材料</h3>
+<select id="personCount" onchange="changeServings('${name}')">
 
-<ul>
+<option value="1">
+1人分
+</option>
+
+<option value="2" selected>
+2人分
+</option>
+
+<option value="3">
+3人分
+</option>
+
+<option value="4">
+4人分
+</option>
+
+</select>
+
+</p>
+
+<h3 class="ingredient-title">
+🥕 材料
+</h3>
+
+<ul class="ingredient-list">
+
 ${info.ingredients.map(item=>`
+
 <li>
-${typeof item==="string"
+
+<span class="ingredient-name">
+${
+typeof item==="string"
 ? item
-: item.name+" "+formatAmount(item.amount,item.unit)+(item.note||"")}
+: item.name
+}
+</span>
+
+<span class="ingredient-amount">
+${
+typeof item==="string"
+? ""
+: formatAmount(item.amount,item.unit)+(item.note||"")
+}
+</span>
+
 </li>
+
 `).join("")}
+
 </ul>
 
-<h3>作り方</h3>
+</div>
 
-<ol>
-${info.howto.map(step=>`
-<li>${step}</li>
+<h3 class="howto-title">
+👩‍🍳 作り方
+</h3>
+
+<div class="howto-list">
+
+${info.howto.map((step,index)=>`
+
+<div class="howto-item">
+
+<div class="step-number">
+${index + 1}
+</div>
+
+<p>
+${step}
+</p>
+
+</div>
+
 `).join("")}
-</ol>
+
+</div>
 
 </div>
 
 `;
-
-}
 
 function goHome(){
 
@@ -3857,6 +3763,10 @@ function goHome(){
     document.getElementById("searchPage").style.display="block";
 
     document.getElementById("moguResult").style.display="block";
+
+
+    // 下のナビを戻す
+    document.querySelector(".bottom-nav").style.display="flex";
 
 }
 
