@@ -3,11 +3,19 @@
 
 <head>
 <link rel="manifest" href="manifest.json">
+<head>
+
+<link rel="manifest" href="manifest.json">
+
 <meta name="theme-color" content="#ff8a65">
+
+<link rel="apple-touch-icon" href="icons/icon-192.png">
 
 <meta name="viewport"
 content="width=device-width, initial-scale=1.0">
+
 <meta charset="UTF-8">
+
 <title>AI献立アプリ</title>
 
 <link rel="stylesheet" href="style.css">
@@ -32,11 +40,6 @@ content="width=device-width, initial-scale=1.0">
 </div>
 
 
-<div class="header">
-
-<p>今日の「おいしい」を探そう🍴</p>
-
-</div>
 
 
 <div id="searchPage">
@@ -51,7 +54,7 @@ placeholder="🔍 料理名や材料を入力"
 oninput="searchRecipes()">
 
 <button onclick="searchRecipes()">
-検索
+🔍 探す
 </button>
 
 </div>
@@ -61,23 +64,29 @@ oninput="searchRecipes()">
 
 </div>
 
-
+<div id="recipeDetail" style="display:none;"></div>
 
 <div id="moodResult"></div>
 
+<div class="diet-switch">
 
+<button id="normalBtn"
+class="diet-btn active"
+onclick="changeDietMode('normal')">
 
-<select id="dietMode">
+🍽️ 通常
 
-<option value="normal">
-通常
-</option>
+</button>
 
-<option value="diet">
-ダイエット
-</option>
+<button id="dietBtn"
+class="diet-btn"
+onclick="changeDietMode('diet')">
 
-</select>
+🥗 ダイエット
+
+</button>
+
+</div>
 
 
 <br><br>

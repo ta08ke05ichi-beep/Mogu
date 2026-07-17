@@ -20,19 +20,10 @@ body{
 
 
 /* タイトル */
-.header{
-    background:white;
-    color:#ff8a65;
-    font-size:40px;
-    font-weight:bold;
-    text-align:center;
-    padding:25px;
-    border-radius:25px;
-}
 
 .logo-area{
     text-align:center;
-    margin:30px 0;
+    margin:15px 0 10px;
 }
 
 .logo-area h1{
@@ -110,21 +101,29 @@ input{
 
     box-sizing:border-box;
 
-    padding:15px;
+    padding:16px 18px;
 
     font-size:16px;
 
-    border-radius:15px;
+    border-radius:30px;
 
     border:none;
 
-    background:#f5f5f5;
+    background:white;
 
-    box-shadow:inset 0 0 0 1px #eee;
+    box-shadow:0 4px 12px rgba(0,0,0,0.08);
+
+    transition:0.2s;
 
 }
 
+input:focus{
 
+outline:none;
+
+box-shadow:0 0 0 4px rgba(255,138,101,0.25);
+
+}
 
 /* メモ欄 */
 
@@ -132,7 +131,7 @@ textarea{
 
     width:100%;
 
-    height:150px;
+    height:110px;
 
     box-sizing:border-box;
 
@@ -395,15 +394,27 @@ button:hover{
 
     background:white;
 
-    border-radius:18px;
+    border-radius:22px;
 
     overflow:hidden;
 
-    box-shadow:0 4px 12px rgba(0,0,0,0.1);
+    padding:18px;
+
+    margin:18px 0;
+
+    box-shadow:0 8px 24px rgba(0,0,0,0.10);
+
+    transition:0.25s;
 
 }
 
+.recommend-card:hover{
 
+    transform:translateY(-5px);
+
+    box-shadow:0 12px 28px rgba(0,0,0,0.15);
+
+}
 
 .recommend-card img{
 
@@ -570,8 +581,8 @@ button:hover{
 
 .mogu-icon{
 
-    width:120px;
-    height:90px;
+    width:150px;
+    height:110px;
 
     background:white;
 
@@ -592,8 +603,8 @@ button:hover{
 
     content:"";
 
-    width:55px;
-    height:55px;
+    width:70px;
+    height:70px;
 
     background:linear-gradient(
         135deg,
@@ -606,19 +617,17 @@ button:hover{
 
     position:absolute;
 
-    top:18px;
-
-    left:33px;
+    top:20px;
+    left:40px;
 
     box-shadow:
     0 4px 8px rgba(0,0,0,0.15);
 }
 
-
 .mogu-text{
-    margin-top:10px;
+    margin-top:4px;
 
-    font-size:44px;
+    font-size:50px;
 
     transform:scale(1.05);
 
@@ -773,6 +782,10 @@ color:transparent;
 
 .favorite-btn{
     background:#fce4ec !important;
+    border-radius:50px;
+    padding:8px 18px;
+    border:none;
+    cursor:pointer;
 }
 
 .quick-menu button:active{
@@ -872,8 +885,11 @@ color:transparent;
 
     .section h2{
 
-        font-size:18px;
-    }
+font-size:20px;
+
+padding:12px 20px;
+
+}
 
 }
 
@@ -1326,7 +1342,7 @@ cursor:pointer;
 
 width:100%;
 
-height:180px;
+height:220px;
 
 object-fit:cover;
 
@@ -2191,16 +2207,287 @@ margin-right:0;
 box-sizing:border-box;
 }
 
-.recommend-image{
+.recipe-image{
 
 width:100%;
 
-height:180px;
+height:220px;
 
 object-fit:cover;
 
+border-radius:20px;
+
+margin:15px 0;
+
+display:block;
+
+}
+
+.favorite-btn.active{
+
+background:#ff8a65;
+
+color:white;
+
+}
+
+.recommend-card h3{
+
+font-size:24px;
+
+font-weight:bold;
+
+margin:15px 0 10px;
+
+color:#444;
+
+}
+
+.category-tag{
+
+display:inline-block;
+
+background:#FFF3E0;
+
+color:#ff8a65;
+
+padding:6px 14px;
+
+border-radius:20px;
+
+font-size:13px;
+
+font-weight:bold;
+
+margin-bottom:12px;
+
+}
+
+.recommend-actions{
+
+display:flex;
+
+gap:10px;
+
+justify-content:center;
+
+margin-top:15px;
+
+flex-wrap:wrap;
+
+}
+
+.detail-card h2{
+
+text-align:center;
+
+font-size:28px;
+
+margin:15px 0;
+
+color:#444;
+
+}
+
+.detail-card h3{
+
+margin-top:25px;
+
+padding-bottom:8px;
+
+border-bottom:2px solid #FFD8C2;
+
+color:#ff8a65;
+
+font-size:22px;
+
+}
+
+.detail-card ul{
+
+background:#FFF9F5;
+
+padding:15px 20px;
+
 border-radius:15px;
 
-margin-bottom:10px;
+list-style:none;
 
+margin-top:10px;
+
+}
+
+.search-area{
+
+display:flex;
+
+gap:10px;
+
+align-items:center;
+
+}
+
+.search-area input{
+
+flex:1;
+
+margin:0;
+
+}
+
+.search-area button{
+
+width:auto;
+
+margin-top:0;
+
+padding:16px 24px;
+
+border-radius:30px;
+
+background:linear-gradient(
+90deg,
+#ff8a65,
+#ffb74d
+);
+
+box-shadow:0 4px 10px rgba(255,138,101,0.3);
+
+transition:0.2s;
+
+}
+
+.search-area button:hover{
+
+transform:translateY(-2px);
+
+}
+
+.search-area button:active{
+
+transform:scale(0.97);
+
+}
+
+#dietMode{
+
+width:220px;
+
+padding:12px 18px;
+
+margin:15px auto;
+
+display:block;
+
+border:none;
+
+border-radius:30px;
+
+background:white;
+
+font-size:16px;
+
+font-weight:bold;
+
+color:#ff8a65;
+
+box-shadow:0 4px 12px rgba(0,0,0,0.08);
+
+cursor:pointer;
+
+}
+
+.diet-switch{
+
+display:flex;
+
+justify-content:center;
+
+gap:12px;
+
+margin:20px 0;
+
+}
+
+.diet-btn{
+
+width:170px;
+
+padding:14px 20px;
+
+border:none;
+
+border-radius:30px;
+
+background:#ffffff;
+
+color:#ff8a65;
+
+font-size:16px;
+
+font-weight:bold;
+
+box-shadow:0 4px 10px rgba(0,0,0,0.08);
+
+cursor:pointer;
+
+transition:0.2s;
+
+}
+
+.diet-btn.active{
+
+background:linear-gradient(
+90deg,
+#ff8a65,
+#ffb74d
+);
+
+color:white;
+
+}
+
+.diet-btn:hover{
+
+transform:translateY(-2px);
+
+}
+
+.diet-btn:active{
+
+transform:scale(0.97);
+
+}
+
+.favorite-heart{
+    color:#aaa;
+    transition:0.3s;
+}
+
+.favorite-btn.active .favorite-heart{
+    color:#ff4d6d;
+}
+
+.favorite-heart{
+    color:#aaa;
+    transition:0.3s;
+}
+
+.favorite-btn.active .favorite-heart{
+    color:#ff4d6d;
+}
+
+.recommend-card{
+    transition:0.2s ease;
+    cursor:pointer;
+    box-shadow:0 4px 12px rgba(0,0,0,0.1);
+}
+
+.recommend-card:hover{
+    transform:translateY(-5px);
+    box-shadow:0 8px 20px rgba(0,0,0,0.15);
+}
+
+.recommend-card:active{
+    transform:translateY(-2px) scale(0.98);
 }

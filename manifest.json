@@ -1,7 +1,7 @@
 {
   "name": "Mogu",
   "short_name": "Mogu",
-  "start_url": "./index.html",
+  "start_url": "./",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#ff8a65",

@@ -29,6 +29,9 @@ JSON.parse(
 localStorage.getItem("favorites")
 ) || [];
 
+// ここを追加！
+let dietMode = "normal";
+
 const recipes = {
 
 
@@ -2381,8 +2384,14 @@ let html =
 `;
 
 html += `
-<button onclick="addFavorite('${result}')">
-⭐お気に入り登録
+<button 
+class="favorite-btn"
+data-recipe="${result}"
+onclick="addFavorite('${result}')">
+
+<span class="favorite-heart">⭐</span>
+お気に入り登録
+
 </button>
 `;
 
@@ -2877,7 +2886,7 @@ document.getElementById(
 
 }
 
-showPopularRecipes();
+// showPopularRecipes();
 
 
 function addFavorite(recipe){
@@ -2911,11 +2920,27 @@ JSON.stringify(favorites)
 showFavorites();
 
 
-// ボタン表示更新
+// ハート表示更新
+let btn = document.querySelector(
+    `.favorite-btn[data-recipe="${recipe}"]`
+);
+
+if(btn){
+    btn.classList.toggle(
+        "active",
+        favorites.includes(recipe)
+    );
+}
+
+
+// Moguおすすめ更新
+recommendMenu();
+
+
+// 検索結果更新
 searchRecipe(recipe);
 
 }
-
 
 function showFavorites(){
 
@@ -2989,9 +3014,10 @@ let text = `
 class="favorite-btn ${favorites.includes(name) ? "active" : ""}"
 onclick="addFavorite('${name}')">
 
-${favorites.includes(name)
-? "❤️ お気に入り済み"
-: "♡ お気に入り"}
+<span class="favorite-heart">
+${favorites.includes(name) ? "♥" : "♡"}
+</span>
+お気に入り
 
 </button>
 
@@ -3656,15 +3682,6 @@ class="recipe-image"
 
 }
 
-function updateRecipeCount(){
-
-    let count = Object.keys(recipes).length;
-
-    document.getElementById("recipeTotal").textContent = count + "品";
-
-}
-
-updateRecipeCount();
 showRecommend();
 showFavorites();
 
@@ -3832,6 +3849,10 @@ function recommendMenu(){
 
 let keys = Object.keys(recipes);
 
+if(dietMode === "diet"){
+    keys = keys.filter(name => recipes[name].diet === true);
+}
+
 // ランダムで3品選ぶ
 let result = [];
 
@@ -3865,10 +3886,9 @@ class="recommend-image"
 
 <h3>${name}</h3>
 
-<p>
+<div class="category-tag">
 🍽 ${recipe.category}
-</p>
-
+</div>
 <div class="mini-info">
 
 <span>
@@ -3882,14 +3902,25 @@ class="recommend-image"
 </div>
 
 
-<button onclick="addFavorite('${name}')">
-❤️ お気に入り
-</button>
+<div class="recommend-actions">
 
+<button
+class="favorite-btn ${favorites.includes(name) ? "active" : ""}"
+onclick="addFavorite('${name}')">
+
+<span class="favorite-heart">
+${favorites.includes(name) ? "♥" : "♡"}
+</span>
+
+お気に入り
+
+</button>
 
 <button onclick="openRecipe('${name}')">
 👩‍🍳 レシピを見る
 </button>
+
+</div>
 
 
 </div>
@@ -3899,5 +3930,29 @@ class="recommend-image"
 
 
 document.getElementById("moguResult").innerHTML = html;
+
+}
+
+function changeDietMode(mode){
+
+    dietMode = mode;
+
+    document.getElementById("normalBtn").classList.remove("active");
+    document.getElementById("dietBtn").classList.remove("active");
+
+    if(mode === "normal"){
+
+        document.getElementById("normalBtn").classList.add("active");
+
+    }else{
+
+        document.getElementById("dietBtn").classList.add("active");
+
+    }
+
+    // 献立を表示中なら更新
+    if(document.getElementById("moguResult").innerHTML !== ""){
+        recommendMenu();
+    }
 
 }
