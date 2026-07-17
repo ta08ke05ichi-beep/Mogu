@@ -3003,7 +3003,7 @@ let people = info.servings;
 let text = `
 
 <button onclick="closeRecipe()">
-❌ 閉じる
+← 戻る
 </button>
 
 <h2>${name}</h2>
@@ -3776,25 +3776,34 @@ if(!info){
     return;
 }
 
+// ホーム系を隠す
 document.getElementById("searchPage").style.display="none";
 
+document.getElementById("moguResult").style.display="none";
 
-let detail = document.getElementById("recipeDetail");
 
-detail.style.display="block";
+// レシピ詳細画面を表示
+document.getElementById("recipePage").style.display="block";
+
+
+let detail = document.getElementById("recipe-detail");
 
 
 detail.innerHTML = `
 
-<button onclick="backSearch()">
+<button class="back-btn" onclick="goHome()">
 ⬅ 戻る
 </button>
 
 <div class="detail-card">
 
+<img src="${info.image}" class="recipe-image">
+
 <h2>${name}</h2>
 
-<img src="${info.image}" class="recipe-image">
+<p class="recipe-description">
+${info.text || ""}
+</p>
 
 <p>${info.text || ""}</p>
 
@@ -3841,11 +3850,13 @@ ${info.howto.map(step=>`
 
 }
 
-function backSearch(){
+function goHome(){
 
-    document.getElementById("recipeDetail").style.display = "none";
+    document.getElementById("recipePage").style.display="none";
 
-    document.getElementById("searchPage").style.display = "block";
+    document.getElementById("searchPage").style.display="block";
+
+    document.getElementById("moguResult").style.display="block";
 
 }
 
