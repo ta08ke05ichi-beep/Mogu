@@ -32,6 +32,11 @@ localStorage.getItem("favorites")
 // ここを追加！
 let dietMode = "normal";
 
+let favorites =
+JSON.parse(localStorage.getItem("favorites")) || [];
+
+let dietMode = "normal";
+
 const recipes = {
 
 
@@ -2862,20 +2867,18 @@ recipes.sort(
 for(let i=0;i<5;i++){
 
 html += `
-
-<div class="recipe-card" onclick="openRecipe('${shuffled[i].name.replace(' ','')}')">
+<div class="recommend-card"
+onclick="openRecipe('${shuffled[i].name}')">
 
 <img
 src="${shuffled[i].image}"
-class="recipe-image"
->
+class="recipe-image">
 
 <h3>${shuffled[i].name}</h3>
 
 <p>${shuffled[i].text}</p>
 
 </div>
-
 `;
 
 }
@@ -3046,10 +3049,14 @@ html += `
 }
 
 
-document.getElementById("recommend").innerHTML = html;
+let box = document.getElementById("recommend");
 
+if (box) {
+    box.innerHTML = html;
+    return;
 }
 
+}
 
 function filterCategory(category){
 
@@ -3190,7 +3197,16 @@ document.getElementById("searchResult").innerHTML = html;
 
 function changeServings(name){
 
-    openRecipe(name);
+let people =
+Number(document.getElementById("personCount").value);
+
+let info = recipes[name];
+
+let base = info.servings;
+
+let ratio = people / base;
+
+// ここに前に作った人数変更処理
 
 }
 
@@ -3238,7 +3254,7 @@ for(let key in recipes){
 if(recipes[key].category == category){
 
 result += `
-<div class="recipe-card">
+<div class="recipe-card" onclick="openRecipe('${key}')">
 <h3>${recipes[key].name}</h3>
 <p>${recipes[key].text}</p>
 </div>
@@ -3621,154 +3637,14 @@ function closePopup(){
 
 function openRecipe(name){
 
+let cleanName = name.replace(/^[^\wぁ-んァ-ン一-龥]+/, "");
+
 location.href =
-"recipe.html?name=" + encodeURIComponent(name);
+"recipe.html?name=" + encodeURIComponent(cleanName);
 
 }
 
-// ホーム系を隠す
-document.getElementById("searchPage").style.display="none";
 
-document.getElementById("moguResult").style.display="none";
-
-
-// レシピ詳細画面を表示
-document.getElementById("recipePage").style.display="block";
-
-// 下のナビを隠す
-document.querySelector(".bottom-nav").style.display="none";
-
-let detail = document.getElementById("recipe-detail");
-
-detail.innerHTML = `
-
-<div class="detail-card">
-
-<img src="${info.image}" class="recipe-image">
-
-<h2>${name}</h2>
-
-<p class="recipe-description">
-${info.text || ""}
-</p>
-
-
-<div class="info-cards">
-
-<div class="info-box">
-<span>⏰</span>
-<p>調理時間</p>
-<strong>${info.time}分</strong>
-</div>
-
-<div class="info-box">
-<span>🔥</span>
-<p>カロリー</p>
-<strong>${info.kcal}kcal</strong>
-</div>
-
-</div>
-
-<p>
-👥 人数：
-
-<select id="personCount" onchange="changeServings('${name}')">
-
-<option value="1">
-1人分
-</option>
-
-<option value="2" selected>
-2人分
-</option>
-
-<option value="3">
-3人分
-</option>
-
-<option value="4">
-4人分
-</option>
-
-</select>
-
-</p>
-
-<h3 class="ingredient-title">
-🥕 材料
-</h3>
-
-<ul class="ingredient-list">
-
-${info.ingredients.map(item=>`
-
-<li>
-
-<span class="ingredient-name">
-${
-typeof item==="string"
-? item
-: item.name
-}
-</span>
-
-<span class="ingredient-amount">
-${
-typeof item==="string"
-? ""
-: formatAmount(item.amount,item.unit)+(item.note||"")
-}
-</span>
-
-</li>
-
-`).join("")}
-
-</ul>
-
-</div>
-
-<h3 class="howto-title">
-👩‍🍳 作り方
-</h3>
-
-<div class="howto-list">
-
-${info.howto.map((step,index)=>`
-
-<div class="howto-item">
-
-<div class="step-number">
-${index + 1}
-</div>
-
-<p>
-${step}
-</p>
-
-</div>
-
-`).join("")}
-
-</div>
-
-</div>
-
-`;
-
-function goHome(){
-
-    document.getElementById("recipePage").style.display="none";
-
-    document.getElementById("searchPage").style.display="block";
-
-    document.getElementById("moguResult").style.display="block";
-
-
-    // 下のナビを戻す
-    document.querySelector(".bottom-nav").style.display="flex";
-
-}
 
 function recommendMenu(){
 
@@ -3802,7 +3678,7 @@ result.forEach(function(name){
 let recipe = recipes[name];
 
 html += `
-<div class="recommend-card">
+
 
 <img 
 src="${recipe.image}" 
@@ -3854,7 +3730,11 @@ ${favorites.includes(name) ? "♥" : "♡"}
 });
 
 
-document.getElementById("moguResult").innerHTML = html;
+let box = document.getElementById("moguResult");
+
+if(box){
+    box.innerHTML = html;
+}
 
 }
 

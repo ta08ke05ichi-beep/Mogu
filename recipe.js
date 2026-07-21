@@ -2,63 +2,55 @@ let params = new URLSearchParams(location.search);
 
 let name = params.get("name");
 
-
 let info = recipes[name];
-
 
 if(info){
 
-document.getElementById("recipe-detail").innerHTML = `
+    document.getElementById("recipe-detail").innerHTML = `
 
-<div class="detail-card">
+    <div class="detail-card">
 
-<img src="${info.image}" class="recipe-image">
+    <img src="${info.image}" class="recipe-image">
 
+    <h2>${name}</h2>
 
-<h2>${name}</h2>
+    <p>${info.text || ""}</p>
 
+    <p>🔥 ${info.kcal} kcal</p>
+    <p>⏰ ${info.time} 分</p>
+    <p>💪 ${info.protein} g</p>
 
-<p>
-${info.text || ""}
-</p>
+    <h3>🥕 材料</h3>
 
+    <ul>
 
-<h3>🥕 材料</h3>
+    ${info.ingredients.map(item => `
+    <li>
+    ${
+        typeof item === "string"
+        ? item
+        : item.name + " " + formatAmount(item.amount,item.unit) + (item.note || "")
+    }
+    </li>
+    `).join("")}
 
-<ul>
+    </ul>
 
-${info.ingredients.map(item=>`
+    <h3>👩‍🍳 作り方</h3>
 
-<li>
-${
-typeof item==="string"
-?
-item
-:
-item.name+" "+formatAmount(item.amount,item.unit)
-}
-</li>
+    <ol>
 
-`).join("")}
+    ${info.howto.map(step => `<li>${step}</li>`).join("")}
 
-</ul>
+    </ol>
 
+    </div>
 
-<h3>👩‍🍳 作り方</h3>
+    `;
 
-<ol>
+}else{
 
-${info.howto.map(step=>
-
-`<li>${step}</li>`
-
-).join("")}
-
-</ol>
-
-
-</div>
-
-`;
+    document.getElementById("recipe-detail").innerHTML =
+    "<h2>レシピが見つかりませんでした。</h2>";
 
 }
