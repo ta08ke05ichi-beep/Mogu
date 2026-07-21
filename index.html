@@ -64,8 +64,6 @@ oninput="searchRecipes()">
 
 </div>
 
-<div id="recipeDetail" style="display:none;"></div>
-
 <div id="moodResult"></div>
 
 <div class="diet-switch">
@@ -134,64 +132,6 @@ onclick="changeDietMode('diet')">
 </div>
 
 
-<!-- カテゴリー -->
-<div class="section">
-
-
-<h2>🍴 ジャンルから探す</h2>
-
-
-<div class="category-buttons">
-
-
-<button onclick="filterCategory('全部')">
-<span>✨</span>
-全部
-</button>
-
-
-<button onclick="filterCategory('主食')">
-<span>🍚</span>
-主食
-</button>
-
-
-<button onclick="filterCategory('主菜')">
-<span>🍖</span>
-主菜
-</button>
-
-
-<button onclick="filterCategory('副菜')">
-<span>🥗</span>
-副菜
-</button>
-
-
-<button onclick="filterCategory('お弁当')">
-<span>🍱</span>
-お弁当
-</button>
-
-
-<button onclick="filterCategory('朝ごはん')">
-<span>🍳</span>
-朝ごはん
-</button>
-
-
-<button onclick="filterCategory('スープ')">
-<span>🍲</span>
-スープ
-</button>
-
-
-</div>
-
-
-</div>
-
-
 
 <!-- おすすめ -->
 <div class="section">
@@ -255,7 +195,8 @@ placeholder="買うものを書いてね&#13;&#10;例：&#13;&#10;卵&#13;&#10;�
 
 <div id="recipe-detail"></div>
 
-</div>
+
+<!-- タイマー -->
 
 <div class="timer-box">
 
@@ -265,39 +206,42 @@ placeholder="買うものを書いてね&#13;&#10;例：&#13;&#10;卵&#13;&#10;�
     <h2 id="timerDisplay">10:00</h2>
 </div>
 
-
 </div>
 
 
 <div class="timer-setting">
 
-<input 
-id="timerMinutes"
-type="number"
-value="10"
->
+<button onclick="changeTimer(-1)">
+−
+</button>
 
-<span>分</span>
+<span id="timerMinutes">
+10</span>
+
+<button onclick="changeTimer(1)">
+＋
+</button>
 
 </div>
-
 
 <div class="timer-buttons">
 
 <button class="timer-btn" onclick="startTimer()">
-▶
+▶ スタート
 </button>
 
 <button class="timer-btn" onclick="stopTimer()">
-⏸
+⏸ 停止
 </button>
 
 <button class="timer-btn reset-btn" onclick="resetTimer()">
-↻
+↻ リセット
 </button>
 
 </div>
 
+
+</div>
 
 <div class="bottom-nav">
 
