@@ -2855,10 +2855,14 @@ category:"副菜"
 
 let html = "";
 
-let shuffled =
-recipes.sort(
+let shuffled = Object.keys(recipes)
+.sort(
 ()=>Math.random()-0.5
-);
+)
+.map(name => ({
+    name:name,
+    ...recipes[name]
+}));
 
 for(let i=0;i<5;i++){
 
@@ -3073,7 +3077,6 @@ html += `
 
 <div class="recipe-info">
 
-<h3 onclick="openRecipe('${name}')">
 ${name}
 </h3>
 
