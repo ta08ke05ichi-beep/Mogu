@@ -1,4 +1,4 @@
-const CACHE_NAME = "mogu-cache-v2";
+const CACHE_NAME = "mogu-cache-v3";
 
 const urlsToCache = [
   "./",
@@ -8,6 +8,31 @@ const urlsToCache = [
   "./manifest.json"
 ];
 
+self.addEventListener("activate", event => {
+
+event.waitUntil(
+
+caches.keys().then(keys => {
+
+return Promise.all(
+
+keys.map(key => {
+
+if(key !== CACHE_NAME){
+
+return caches.delete(key);
+
+}
+
+})
+
+);
+
+})
+
+);
+
+});
 
 // インストール
 self.addEventListener("install", event => {
