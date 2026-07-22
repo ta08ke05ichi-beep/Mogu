@@ -3637,6 +3637,8 @@ function closePopup(){
 
 function openRecipe(name){
 
+alert("押された名前：" + name);
+
 location.href =
 "recipe.html?name=" + encodeURIComponent(name);
 
