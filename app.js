@@ -30,7 +30,7 @@ JSON.parse(localStorage.getItem("favorites")) || [];
 
 let dietMode = "normal";
 
-const recipes = {
+window.recipes = {
 
 
 "🍛カレー":{
@@ -2149,6 +2149,8 @@ howto:[
 }
 
 };
+
+console.log("app.js recipes確認", recipes);
 
 window.recipes = recipes;
 
