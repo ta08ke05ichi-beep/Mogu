@@ -1,56 +1,72 @@
+console.log(recipes);
+
 let params = new URLSearchParams(location.search);
 
 let name = params.get("name");
 
+alert(name);
+
 let info = recipes[name];
+
+console.log("名前:", name);
+console.log("情報:", info);
 
 if(info){
 
-    document.getElementById("recipe-detail").innerHTML = `
+document.getElementById("recipe-detail").innerHTML = `
 
-    <div class="detail-card">
+<div class="detail-card">
 
-    <img src="${info.image}" class="recipe-image">
+<img src="${info.image}" class="recipe-image">
 
-    <h2>${name}</h2>
+<h2>${name}</h2>
 
-    <p>${info.text || ""}</p>
+<p>🔥 ${info.kcal} kcal</p>
 
-    <p>🔥 ${info.kcal} kcal</p>
-    <p>⏰ ${info.time} 分</p>
-    <p>💪 ${info.protein} g</p>
+<p>⏰ ${info.time} 分</p>
 
-    <h3>🥕 材料</h3>
+<p>💪 ${info.protein} g</p>
 
-    <ul>
 
-    ${info.ingredients.map(item => `
-    <li>
-    ${
-        typeof item === "string"
-        ? item
-        : item.name + " " + formatAmount(item.amount,item.unit) + (item.note || "")
-    }
-    </li>
-    `).join("")}
+<h3>🥕 材料</h3>
 
-    </ul>
+<ul>
 
-    <h3>👩‍🍳 作り方</h3>
+${info.ingredients.map(item => `
 
-    <ol>
+<li>
+${typeof item === "string"
+? item
+: item.name + " " + formatAmount(item.amount,item.unit)
+}
+</li>
 
-    ${info.howto.map(step => `<li>${step}</li>`).join("")}
+`).join("")}
 
-    </ol>
+</ul>
 
-    </div>
 
-    `;
+<h3>👩‍🍳 作り方</h3>
+
+<ol>
+
+${info.howto.map(step => `
+
+<li>${step}</li>
+
+`).join("")}
+
+</ol>
+
+
+</div>
+
+`;
+
 
 }else{
 
-    document.getElementById("recipe-detail").innerHTML =
-    "<h2>レシピが見つかりませんでした。</h2>";
+document.getElementById("recipe-detail").innerHTML =
+"レシピが見つかりませんでした";
 
 }

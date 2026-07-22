@@ -24,13 +24,6 @@ return num + unit;
 
 }
 
-let favorites =
-JSON.parse(
-localStorage.getItem("favorites")
-) || [];
-
-// ここを追加！
-let dietMode = "normal";
 
 let favorites =
 JSON.parse(localStorage.getItem("favorites")) || [];
@@ -2156,6 +2149,9 @@ howto:[
 }
 
 };
+
+window.recipes = recipes;
+
 function suggestMenu(){
 
 let ingredients =
@@ -2937,9 +2933,9 @@ if(btn){
 
 
 // Moguおすすめ更新
-recommendMenu();
-
-
+if(document.getElementById("moguResult")){
+    recommendMenu();
+}
 
 }
 
@@ -3289,6 +3285,14 @@ document.getElementById("shoppingMemo").value=memo;
 
 }
 
+if (document.getElementById("recommend")) {
+    showRecommend();
+}
+
+if (document.getElementById("favorites")) {
+    showFavorites();
+}
+
 }
 
 function scrollHome(){
@@ -3519,13 +3523,6 @@ class="recipe-image"
 
 }
 
-if(document.getElementById("recommend")){
-    showRecommend();
-}
-
-if(document.getElementById("favorites")){
-    showFavorites();
-}
 
 let timer;
 let timeLeft = 0;
@@ -3637,10 +3634,8 @@ function closePopup(){
 
 function openRecipe(name){
 
-let cleanName = name.replace(/^[^\wぁ-んァ-ン一-龥]+/, "");
-
 location.href =
-"recipe.html?name=" + encodeURIComponent(cleanName);
+"recipe.html?name=" + encodeURIComponent(name);
 
 }
 
@@ -3755,9 +3750,8 @@ function changeDietMode(mode){
 
     }
 
-    // 献立を表示中なら更新
-    if(document.getElementById("moguResult").innerHTML !== ""){
-        recommendMenu();
-    }
+    if (document.getElementById("moguResult")) {
+    recommendMenu();
+}
 
 }
