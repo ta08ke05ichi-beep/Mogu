@@ -3067,7 +3067,7 @@ if(category === "全部" || info.category === category){
 
 html += `
 
-<div class="recipe-card">
+<div class="recipe-card" onclick="openRecipe('${name}')">
 
 <img src="${info.image}" class="recipe-image">
 
