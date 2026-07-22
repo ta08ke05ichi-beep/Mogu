@@ -3637,13 +3637,14 @@ function closePopup(){
 
 function openRecipe(name){
 
-alert("押された名前：" + name);
+alert("移動するよ：" + name);
+
+let cleanName = name.replace(/^[^\wぁ-んァ-ン一-龥]+/, "");
 
 location.href =
-"./recipe.html?name=" + encodeURIComponent(name);
+"./recipe.html?name=" + encodeURIComponent(cleanName);
 
 }
-
 
 
 function recommendMenu(){
