@@ -2949,20 +2949,6 @@ line-height:1.6;
 
 }
 
-#personCount{
-
-    width:100%;
-
-    padding:10px;
-
-    border-radius:10px;
-
-    border:1px solid #ddd;
-
-    font-size:16px;
-
-}
-
 @media (max-width:600px){
 
     body{
